@@ -71,6 +71,7 @@ StringRef Triple::getArchTypeName(ArchType Kind) {
   case renderscript64: return "renderscript64";
   case leg:            return "leg";
   case cjg:            return "cjg";
+  case pPIM:           return "pPIM";
   }
 
   llvm_unreachable("Invalid ArchType!");
@@ -144,6 +145,7 @@ StringRef Triple::getArchTypePrefix(ArchType Kind) {
   case riscv64:     return "riscv";
   case leg:         return "leg";
   case cjg:         return "cjg";
+  case pPIM:        return "pPIM";
   }
 }
 
@@ -304,6 +306,7 @@ Triple::ArchType Triple::getArchTypeForLLVMName(StringRef Name) {
     .Case("renderscript64", renderscript64)
     .Case("leg", leg)
     .Case("cjg", cjg)
+    .Case("pPIM", pPIM)
     .Default(UnknownArch);
 }
 
@@ -420,6 +423,7 @@ static Triple::ArchType parseArch(StringRef ArchName) {
     .Case("renderscript64", Triple::renderscript64)
     .Case("leg", Triple::leg)
     .Case("cjg", Triple::cjg)
+    .Case("pPIM", Triple::pPIM)
     .Default(Triple::UnknownArch);
 
   // Some architectures require special parsing logic just to compute the
@@ -650,6 +654,7 @@ static Triple::ObjectFormatType getDefaultFormat(const Triple &T) {
   case Triple::xcore:
   case Triple::leg:
   case Triple::cjg:
+  case Triple::pPIM:
     return Triple::ELF;
 
   case Triple::ppc:
@@ -1184,6 +1189,7 @@ static unsigned getArchPointerBitWidth(llvm::Triple::ArchType Arch) {
   case llvm::Triple::renderscript32:
   case llvm::Triple::leg:
   case llvm::Triple::cjg:
+  case llvm::Triple::pPIM:
     return 32;
 
   case llvm::Triple::aarch64:
@@ -1265,6 +1271,7 @@ Triple Triple::get32BitArchVariant() const {
   case Triple::renderscript32:
   case Triple::leg:
   case Triple::cjg:
+  case Triple::pPIM:
     // Already 32-bit.
     break;
 
@@ -1304,6 +1311,7 @@ Triple Triple::get64BitArchVariant() const {
   case Triple::shave:
   case Triple::leg:
   case Triple::cjg:
+  case Triple::pPIM:
     T.setArch(UnknownArch);
     break;
 
@@ -1391,6 +1399,7 @@ Triple Triple::getBigEndianArchVariant() const {
   case Triple::thumb:
   case Triple::leg:
   case Triple::cjg:
+  case Triple::pPIM:
     T.setArch(UnknownArch);
     break;
 
@@ -1478,6 +1487,7 @@ bool Triple::isLittleEndian() const {
   case Triple::renderscript64:
   case Triple::leg:
   case Triple::cjg:
+  case Triple::pPIM:
     return true;
   default:
     return false;

@@ -312,6 +312,7 @@ enum {
   EM_BPF = 247,           // Linux kernel bpf virtual machine
     
   EM_CJG = 327,           // CJG
+  EM_pPIM = 999,  
 
   // A request has been made to the maintainer of the official registry for
   // such numbers for an official value for WebAssembly. As soon as one is
